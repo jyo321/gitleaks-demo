@@ -1,8 +1,8 @@
 name: Gitleaks Scan
 
 on:
-  pull_request:
   push:
+  pull_request:
 
 permissions:
   contents: read
@@ -18,7 +18,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run Gitleaks Scan
+      - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --redact --verbose --exit-code 1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
